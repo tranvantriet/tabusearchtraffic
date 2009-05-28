@@ -41,13 +41,7 @@ public class TSCore {
 				.createDistanceMatrixFromCoordinates(customers);
 		double[][] matrixDistance2 = matrixDistance.clone();
 
-		double[][] trafficweights = new double[matrixDistance.length][matrixDistance[0].length]; // customers.clone();
-
-		for (int i = 0; i < matrixDistance.length; i++) {
-			for (int j = 0; j < matrixDistance[0].length; j++) {
-				trafficweights[i][j] = Math.random() * 0.1;
-			}
-		}
+		double[][] trafficweights = parameters.generateRandomEdgeWeigts(matrixDistance.length, matrixDistance[0].length, 0.01);
 
 		matrixDistance = traffic.correctMatrixDistanceFromTrafficWeights(
 				matrixDistance, trafficweights);
