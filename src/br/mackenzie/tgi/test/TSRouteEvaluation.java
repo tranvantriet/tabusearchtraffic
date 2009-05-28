@@ -24,13 +24,13 @@ public class TSRouteEvaluation {
 		this.distanceMatrix = distanceMatrix;
 		this.mediumVelocity = mediumVelocity;
 
-		double firstTourTotalTime = this.calculateTourTotalTime(firstTour,
-				correctedDistanceMatrix);
+		double firstTourTotalTime = this.calculateTourTotalDistance(firstTour,
+				correctedDistanceMatrix)/ this.mediumVelocity;
 		double firstTourTotalDistance = this.calculateTourTotalDistance(
 				firstTour, distanceMatrix);
 
-		double secondTourTotalTime = this.calculateTourTotalTime(secondTour,
-				correctedDistanceMatrix);
+		double secondTourTotalTime = this.calculateTourTotalDistance(secondTour,
+				correctedDistanceMatrix) / this.mediumVelocity;
 		double secondTourTotalDistance = this.calculateTourTotalDistance(
 				secondTour, distanceMatrix);
 		
@@ -54,19 +54,6 @@ public class TSRouteEvaluation {
 		return this.finalTour;
 	}
 
-	private double calculateTourTotalTime(int[] tour,
-			double[][] localDistanceMatrix) {
-		int lastTour = 0;
-		double totalTime = 0.0;
-
-		for (int i = 0; i < tour.length; i++) {
-			totalTime += localDistanceMatrix[tour[i]][lastTour]
-					/ mediumVelocity;
-			lastTour = tour[i];
-		}
-
-		return totalTime;
-	}
 
 	private double calculateTourTotalDistance(int tour[],
 			double[][] localDistanceMatrix) {
