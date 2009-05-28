@@ -54,7 +54,27 @@ public class Tools {
         return matrix;
     }
     
-    
+    /**
+     * Método responsável por calcular o total de distância de uma matriz de distância
+     * Não faz qualquer constatação se é uma matriz de distância corrigida ou não - simplesmente
+     * dado o roteiro, calcula o total a percorrer
+     * 
+     * @param tour roteiro
+     * @param localDistanceMatrix matriz de distâncias
+     * @return a distância total do roteiro
+     */
+	public static double calculateTourTotalDistance(int tour[],
+			double[][] localDistanceMatrix) {
+		int lastTour = 0;
+		double totalDistance = 0.0;
+
+		for (int i = 0; i < tour.length; i++) {
+			totalDistance += localDistanceMatrix[tour[i]][lastTour];
+			lastTour = tour[i];
+		}
+
+		return totalDistance;
+	}
 	
 	
 
