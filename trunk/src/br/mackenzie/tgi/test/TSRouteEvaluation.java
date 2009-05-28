@@ -3,10 +3,12 @@ package br.mackenzie.tgi.test;
 import br.mackenzie.tgi.tools.Tools;
 
 /**
- * Classe responsável por validar uma solução da melhor rota Critério para
- * escolher a melhor rota: Quando o tempo que eu levei para percorrer a matriz
+ * Classe responsável por validar uma solução da melhor rota. Critério para
+ * escolher a melhor rota: Quando o tempo total para percorrer a matriz
  * de distâncias corrigida for menor que o tempo que levou para percorrer os
- * pontos sem trânsito
+ * pontos sem trânsito. Quando o tempo for igual o critério de desempate é a
+ * distância percorrida pelos dois roteiros na matriz de distâncias real.
+ * @see TSRouteEvaluation
  * 
  * @author rodrigo
  * 
@@ -21,8 +23,8 @@ public class TSRouteEvaluation {
 	/**
 	 * Construtor público da classe TSrouteEvaluation para configurar as devidas variáveis internas.
 	 * O método não se preocupa qual roteiro é com trânsito ou sem trânsito, simplesmente 
-	 * calcula a distância e tempo total e depois avalia qual roteiro é o melhor levando em consideração
-	 * o tempo e depois a distância
+	 * calcula a distância, tempo total e depois avalia qual roteiro é o melhor levando em consideração
+	 * o tempo e depois a distância.
 	 * 
 	 * @param correctedDistanceMatrix Matriz de distância corrigida
 	 * @param distanceMatrix Matriz de distância original
