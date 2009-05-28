@@ -16,6 +16,7 @@ public class TSParameters {
 	 */
 	private int customerSize;
 	private double[][] distanceMatrix;
+	private double[][] trafficweights;
 	private boolean enableTrafficWeights = false;
 	private boolean enableRandomCustomerPoints = true;
 	private double[][] customerPoints;
@@ -195,5 +196,18 @@ public class TSParameters {
 	public double[][] getDistanceMatrix() {
 		return distanceMatrix;
 	}
-
+	/**
+	 * 
+	 * @return matriz de pesos
+	 */
+	public double[][] getTrafficweights() {
+		return trafficweights;
+	}
+	/**
+	 * Atribui para a variável privada uma matriz de pesos
+	 * @param trafficweights uma matriz de pesos double[][]
+	 */
+	public void setTrafficweights(double[][] trafficweights) {
+		this.trafficweights = trafficweights;
+	}
 }
