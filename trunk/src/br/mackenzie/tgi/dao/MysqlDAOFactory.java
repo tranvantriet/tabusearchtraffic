@@ -14,11 +14,11 @@ import java.sql.SQLException;
 public class MysqlDAOFactory extends DAOFactory{
 		//TODO Read all this information from a XML file
 		public static final String DRIVER = "com.mysql.jdbc.Driver";
-		public static final String DBURL = "jdbc:mysql://192.168.1.200/icoesp";
-		public static final String DB = "icoesp";
-		public static final String SERVER = "192.168.1.200";
+		public static final String DBURL = "jdbc:mysql://hostname/icoesp";
+		public static final String DB = "";
+		public static final String SERVER = "hostname";
 		public static final String USERNAME = "root";
-		public static final String PASSWORD = "owner33";
+		public static final String PASSWORD = "";
 		
 		
 		/**
