@@ -138,7 +138,11 @@ public class TSParameters {
 
 		for (int i = 0; i < columns; i++) {
 			for (int j = 0; j < lines; j++) {
-				returnvalue[i][j] = Math.random() * randomValueWeight;
+				
+				if(returnvalue[j][i] != 0)
+					returnvalue[i][j] = returnvalue[j][i];
+				else
+					returnvalue[i][j] = Math.random() * randomValueWeight;
 			}
 		}
 		return returnvalue;
