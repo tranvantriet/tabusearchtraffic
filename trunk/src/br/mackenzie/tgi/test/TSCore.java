@@ -1,5 +1,7 @@
 package br.mackenzie.tgi.test;
 
+import java.awt.Color;
+
 import org.coinor.opents.BestEverAspirationCriteria;
 import org.coinor.opents.MoveManager;
 import org.coinor.opents.ObjectiveFunction;
@@ -8,22 +10,21 @@ import org.coinor.opents.SingleThreadedTabuSearch;
 import org.coinor.opents.Solution;
 import org.coinor.opents.TabuList;
 import org.coinor.opents.TabuSearch;
+import org.jfree.chart.plot.PlotOrientation;
 
+import br.mackenzie.tgi.graphics.TSPlotter;
 import br.mackenzie.tgi.parameters.TSParameters;
 import br.mackenzie.tgi.tools.Tools;
 import br.mackenzie.tgi.tools.Traffic;
 
 public class TSCore {
 
-	int trafficIndex, tabuIterations, costumers,tenure;
-	double[][] trafficweights, customers, matrixDistance, matrixDistance2;
+	int trafficIndex, tabuIterations, costumers, tenure;
+	double[][] trafficweights, customerPoints, matrixDistance, matrixDistance2;
 
-	public TSCore(	int tabuIterations, 
-					int trafficIndex, 
-					int costumers,
-					int tenure,
-					double[][] matrixDistance,
-					double[][] trafficweights) {
+	public TSCore(int tabuIterations, int trafficIndex, int costumers,
+			int tenure, double[][] matrixDistance, double[][] trafficweights,
+			double[][] customerPoints) {
 		super();
 		this.costumers = costumers;
 		this.tenure = tenure;
@@ -31,6 +32,7 @@ public class TSCore {
 		this.tabuIterations = tabuIterations;
 		this.trafficIndex = trafficIndex;
 		this.trafficweights = trafficweights;
+		this.customerPoints = customerPoints;
 	}
 
 	public void generate() {
@@ -49,16 +51,19 @@ public class TSCore {
 		parameters.setTabuSearchIterations(tabuIterations);
 		parameters.setTabuTenure(tenure);
 
-		customers = parameters.generateRandomPoints();
+		//customerPoints = parameters.generateRandomPoints();
 
-		if(matrixDistance == null)
-			matrixDistance = Tools.createDistanceMatrixFromCoordinates(customers);
+		if (matrixDistance == null)
+			matrixDistance = Tools
+					.createDistanceMatrixFromCoordinates(customerPoints);
 		matrixDistance2 = matrixDistance.clone();
 
-		if(trafficweights == null)
-			trafficweights = parameters.generateRandomEdgeWeigts(matrixDistance.length, matrixDistance[0].length, 0.01);
+		if (trafficweights == null)
+			trafficweights = parameters.generateRandomEdgeWeigts(
+					matrixDistance.length, matrixDistance[0].length, 0.01);
 
-		matrixDistance = traffic.correctMatrixDistanceFromTrafficWeights(matrixDistance, trafficweights);
+		matrixDistance = traffic.correctMatrixDistanceFromTrafficWeights(
+				matrixDistance, trafficweights);
 
 		ObjectiveFunction objFunc = new TSObjectiveFunction(matrixDistance);
 		Solution initialSolution = new TSInitialSolution(matrixDistance);
@@ -106,24 +111,27 @@ public class TSCore {
 		TSRouteEvaluation routeEvaluation = new TSRouteEvaluation(
 				matrixDistance, matrixDistance2, trafficTour, normalTour, 20);
 		besttour = routeEvaluation.getBestTour();
-		/*
-		 * System.out.println("Best Solution:\n" + besttour);
-		 * 
-		 * for (int i = 0; i < trafficTour.length; i++)
-		 * System.out.println(customers[besttour[i]][0] + "\t" +
-		 * customers[besttour[i]][1]);
-		 * 
-		 * //for (int i = 0; i < besttour.length; i++) //
-		 * System.out.println(customers[besttour[i]][0] + "\t" // +
-		 * customers[besttour[i]][1]);
-		 * 
-		 * TSPlotter.getXYDataAndPlot(customers, "Clientes",
-		 * "Pontos a serem visitados", "X", "Y", PlotOrientation.VERTICAL, 800,
-		 * 600); TSPlotter.test(trafficTour, customers, Color.blue,
-		 * "Considerando trânsito", "Caminho com trânsito");
-		 * TSPlotter.test(normalTour, customers, Color.red, "Sem usar Trânsito",
-		 * "Caminho sem trânsito");
-		 */
+
+		// System.out.println("Best Solution:\n" + besttour);
+		//		  
+		// for (int i = 0; i < trafficTour.length; i++)
+		// System.out.println(customers[besttour[i]][0] + "\t" +
+		// customers[besttour[i]][1]);
+
+		// for (int i = 0; i < besttour.length; i++) //
+		// System.out.println(customers[besttour[i]][0] + "\t" // +
+		// customers[besttour[i]][1]);
+
+		TSPlotter.getXYDataAndPlot(customerPoints, "Clientes",
+				"Pontos a serem visitados", "X", "Y", PlotOrientation.VERTICAL,
+				800, 600);
+
+		TSPlotter.test(trafficTour, customerPoints, Color.blue,
+				"Considerando trânsito", "Caminho com trânsito");
+
+		TSPlotter.test(normalTour, customerPoints, Color.red,
+				"Sem usar Trânsito", "Caminho sem trânsito");
+
 	} // end main
 
 } // end class Main

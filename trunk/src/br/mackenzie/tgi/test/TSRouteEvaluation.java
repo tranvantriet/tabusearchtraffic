@@ -50,8 +50,8 @@ public class TSRouteEvaluation {
 		double secondTourTotalDistance = Tools.calculateTourTotalDistance(
 				secondTour, distanceMatrix);
 		
-		System.out.println(""+String.valueOf(firstTourTotalTime).replace(".", ",") + "\t" + String.valueOf(firstTourTotalDistance).replace(".", ","));
-		System.out.println(""+String.valueOf(secondTourTotalTime).replace(".", ",") + "\t" + String.valueOf(secondTourTotalDistance).replace(".", ","));
+		System.out.println(""+String.valueOf(firstTourTotalTime).replace(".", ",") + "\t" + String.valueOf(firstTourTotalDistance).replace(".", ",") + "\t" + String.valueOf(secondTourTotalTime).replace(".", ",") + "\t" + String.valueOf(secondTourTotalDistance).replace(".", ","));
+		
 
 		if (firstTourTotalTime < secondTourTotalTime) {
 			this.finalTour = firstTour;
