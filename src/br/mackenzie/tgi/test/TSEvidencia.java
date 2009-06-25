@@ -1,15 +1,21 @@
 package br.mackenzie.tgi.test;
 
+import javax.tools.Tool;
+
 import br.mackenzie.tgi.parameters.TSParameters;
+import br.mackenzie.tgi.tools.Tools;
 
 
 public class TSEvidencia {
+	
+	static TSCore core;
 	/**
 	 * Essa clase tem como propósito apenas a criação da evidencia dos testes,
 	 * nada mais.
 	 * 
 	 * @param args
 	 */
+	/*
 	public static void main(String[] args) {
 		
 
@@ -31,29 +37,46 @@ public class TSEvidencia {
 			core.generate();
 		}
 	}
+	*/
+	
+	public static void init(TSParameters tsp){
+		
+		double[][] localMatrixDistance;
+		double[][] localTrafficWeights;
+				
+		tsp.setTrafficweights(TSEvidencia.setTrafficweights());
+		tsp.setDistanceMatrix(TSEvidencia.setMatrixDistance());
+		tsp.setCustomerPoints(tsp.generateRandomPoints());
+		
+		localMatrixDistance = Tools.createDistanceMatrixFromCoordinates(tsp.getCustomerPoints());
+		localTrafficWeights = tsp.generateRandomEdgeWeigts(localMatrixDistance.length, localMatrixDistance[0].length, 0.01); //TODO carefull with parameter randomValueWeight
+		
+		tsp.setDistanceMatrix(localMatrixDistance);
+		tsp.setTrafficweights(localTrafficWeights);
+		
+		core = new TSCore(tsp.getTabuSearchIterations(), tsp.getTrafficIndex(), tsp.getCustomerSize(), tsp.getTabuTenure(),
+				tsp.getDistanceMatrix(), tsp.getTrafficweights(), tsp.getCustomerPoints());
+		core.generate();
+		
+	}
+	
 	
 	public static int[][] setEvidence(){
-		int [][] evidence =	{{10,15},
-								{10,30},
-								{10,50},
-								{10,70},
-								{10,150},
-								{10,200},
-								{10,180},
-								{10,170},
-								{10,120},
-								{10,100},
-								{10,90},
-								{10,80},
-								{10,15},
-								{10,5},
-								{10,0}};
+		int [][] evidence =	{
+								{10,15},{10,30}
+								,{10,50},{10,70}
+								,{10,150},{10,200}
+								,{10,180},{10,170}
+								,{10,120},{10,100}
+								,{10,90},{10,80}
+								,{10,15},{10,5},{10,0}
+							};
 		
 		return evidence;
 	}
 	
 	public static double[][] setCustomerPoints() {
-		double[][] customerPoints =   {{8.531509801692295, 6.937929264203082}, {4.127624026051332, 4.568946747201626}, {2.502050497844449, 8.306992110420135}, {0.485301796769122, 0.4644391186040808}, {7.054669400152226, 0.9088652414653997}, {6.16913782814901, 8.422320718694452}, {1.6270777487663823, 8.691792257607007}, {7.4884273672936015, 2.6144265024841893}, {5.77390841247775, 3.8217650993089567}, {6.266631390371487, 0.02216431306861444}, {0.2123275540199332, 0.11137944554553303}, {9.615591919891136, 5.595873786193152}, {8.389505397424106, 7.205916244869176}, {7.719552990409211, 3.546320437954149}, {0.19090556431719974, 0.04844155029003594}, {0.19814089573746418, 1.5606230563290546}, {9.261864778392903, 7.764850800453228}, {6.627220011341741, 5.7603033920871685}, {8.080952084795102, 1.0414319521725357}, {9.61881151418925, 5.5570313745019275}}; 
+		double[][] customerPoints =   { {2.502050497844449, 8.306992110420135}, {0.485301796769122, 0.4644391186040808}, {7.054669400152226, 0.9088652414653997}, {6.16913782814901, 8.422320718694452}, {1.6270777487663823, 8.691792257607007}, {7.4884273672936015, 2.6144265024841893}, {5.77390841247775, 3.8217650993089567}, {6.266631390371487, 0.02216431306861444}, {0.2123275540199332, 0.11137944554553303}, {9.615591919891136, 5.595873786193152}, {8.389505397424106, 7.205916244869176}, {7.719552990409211, 3.546320437954149}, {0.19090556431719974, 0.04844155029003594}, {0.19814089573746418, 1.5606230563290546}, {9.261864778392903, 7.764850800453228}, {6.627220011341741, 5.7603033920871685}, {8.080952084795102, 1.0414319521725357}, {9.61881151418925, 5.5570313745019275}}; 
 			
 		return customerPoints;
 	}

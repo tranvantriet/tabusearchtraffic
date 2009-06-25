@@ -44,22 +44,13 @@ public class Traffic {
 	 * 
 	 * @return um número representando o índice de trânsito online
 	 */
-	public double updateTrafficIndex() {
+	public double updateTrafficIndex() throws Exception  {
 
 		try {
 			this.TRAFFIC_INDEX = this.ConnectAndGetResults();
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception("Cheque a conexão com a internet");
 		}
 
 		return TRAFFIC_INDEX;
