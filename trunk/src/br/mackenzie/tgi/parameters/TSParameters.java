@@ -22,6 +22,15 @@ public class TSParameters {
 	private double[][] customerPoints;
 	private int tabuSearchIterations;
 	private int tabuTenure;
+	private int trafficIndex;
+
+	public int getTrafficIndex() {
+		return trafficIndex;
+	}
+
+	public void setTrafficIndex(int trafficIndex) {
+		this.trafficIndex = trafficIndex;
+	}
 
 	/**
 	 * Parâmetro que configura o tamanho da lista de clientes
