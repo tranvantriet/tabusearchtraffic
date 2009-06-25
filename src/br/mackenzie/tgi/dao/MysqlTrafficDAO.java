@@ -71,7 +71,7 @@ public class MysqlTrafficDAO implements TrafficDAO{
 	public double getAverageTrafficByWeekHour(int week, int hour)
 			throws TrafficDAOException, SQLException {
 		statement = connection.createStatement();
-		resultset = statement.executeQuery("SELECT AVG(lentidao) as avg from ICOESP WHERE DATE_FORMAT(dataindice, '%w') = " + String.valueOf(week) + " AND DATE_FORMAT(dataindice, '%H') = " + String.valueOf(hour) + ";");
+		resultset = statement.executeQuery("select avg(lentidao) from ICOESP WHERE DATE_FORMAT(dataindice, '%w') = " + String.valueOf(week) + "-1 AND DATE_FORMAT(dataindice, '%H') = " + String.valueOf(hour) + ";");
 		
 		if(resultset.next())
 			return resultset.getDouble(1);
